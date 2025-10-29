@@ -4,11 +4,11 @@ namespace CarManagementAPI.Interfaces
 {
     public interface ICarRepository
     {
-        IEnumerable<Car> GetAll(CarFilter filter = null);
-        void Add(Car car);
-        void Update(Car car);
-        void Delete(int id);
-        Car GetById(int id);
+       Task<IEnumerable<Car>> GetAllAsync(CarFilter filter = null);
+      Task AddAsync(Car car);
+        Task UpdateAsync(Car car);
+        Task DeleteAsync(int id);
+        Task<Car?> GetByIdAsync(int id);
 
     }
 }
