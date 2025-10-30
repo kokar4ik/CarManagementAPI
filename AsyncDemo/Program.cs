@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Diagnostics;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -13,25 +14,25 @@ namespace AsyncDemo
             // Синхронные вызовы
             Console.WriteLine("1. СИНХРОННЫЕ ВЫЗОВЫ:");
             var syncStopwatch = Stopwatch.StartNew();
-            
-            SyncMethod("Первый", 2000);
-            SyncMethod("Второй", 1000);
-            SyncMethod("Третий", 1500);
-            
+
+            SyncMethod("Первый", 5000);
+            SyncMethod("Второй", 5000);
+            SyncMethod("Третий", 5000);
+
             syncStopwatch.Stop();
             Console.WriteLine($"Общее время синхронных вызовов: {syncStopwatch.ElapsedMilliseconds} мс\n");
 
             // Асинхронные вызовы
             Console.WriteLine("2. АСИНХРОННЫЕ ВЫЗОВЫ:");
             var asyncStopwatch = Stopwatch.StartNew();
-            
-            var task1 = AsyncMethod("Первый", 2000);
-            var task2 = AsyncMethod("Второй", 1000);
-            var task3 = AsyncMethod("Третий", 1500);
-            
+
+            var task1 = AsyncMethod("Первый", 5000);
+            var task2 = AsyncMethod("Второй", 5000);
+            var task3 = AsyncMethod("Третий", 5000);
+
             // Ждем завершения всех задач
             await Task.WhenAll(task1, task2, task3);
-            
+
             asyncStopwatch.Stop();
             Console.WriteLine($"Общее время асинхронных вызовов: {asyncStopwatch.ElapsedMilliseconds} мс\n");
 
@@ -60,7 +61,7 @@ namespace AsyncDemo
         static async Task DemonstrateHttpCalls()
         {
             var httpClient = new System.Net.Http.HttpClient();
-            
+
             // Имитация нескольких параллельных HTTP-запросов
             var tasks = new[]
             {
@@ -71,9 +72,9 @@ namespace AsyncDemo
             };
 
             Console.WriteLine("  Отправлено 4 параллельных HTTP-запроса...");
-            
+
             var results = await Task.WhenAll(tasks);
-            
+
             Console.WriteLine("  Все запросы завершены!");
             foreach (var result in results)
             {
